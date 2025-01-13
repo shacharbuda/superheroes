@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     superheroId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Superheroes', // name of the target model
+        model: 'Superheros',
         key: 'id', // key in the target model that we're referencing
       },
       allowNull: false
@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   });
+
+  sequelize.models.Superhero.hasMany(sequelize.models.Timer, { foreignKey: 'superheroId' });
+  Timer.belongsTo(sequelize.models.Superhero, { foreignKey: 'superheroId' });
 
   return Timer;
 };
