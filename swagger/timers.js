@@ -41,6 +41,8 @@
  *           type: string
  *         superheroId:
  *           type: integer
+ *         url:
+ *           type: string
  *         hours:
  *           type: integer
  *         minutes:
@@ -53,6 +55,7 @@
  *         hours: 0
  *         minutes: 2
  *         seconds: 0
+ *         url: "https://message-reciever.onrender.com/api/message"
  */
 
 /**
