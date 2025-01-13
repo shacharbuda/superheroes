@@ -98,6 +98,7 @@
  *               $ref: '#/components/schemas/Superhero'
  *       404:
  *         description: Superhero not found
+ * /superheros:
  *   post:
  *     summary: Create a new superhero
  *     requestBody:
