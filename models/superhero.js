@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Superhero = sequelize.define('Superhero', {
+  const SuperheroBase = sequelize.define('Superhero', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -37,8 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    // Other model options go here TODO: remove
   });
+
+  class Superhero extends SuperheroBase {
+    get fullName() {
+      // capitalize the first letter of the first name and last name
+      return `${this.firstName.charAt(0).toUpperCase()}${this.firstName.slice(1)} ${this.lastName.charAt(0).toUpperCase()}${this.lastName.slice(1)}`;
+    }
+  }
 
   return Superhero;
 };

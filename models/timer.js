@@ -26,14 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    failureCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     isSent: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     }
   });
-
-  sequelize.models.Superhero.hasMany(sequelize.models.Timer, { foreignKey: 'superheroId' });
-  Timer.belongsTo(sequelize.models.Superhero, { foreignKey: 'superheroId' });
 
   return Timer;
 };
