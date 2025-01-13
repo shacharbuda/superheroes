@@ -1,5 +1,5 @@
 {
-  "name": "ignetify-superheros",
+  "name": "superheros",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,12 +8,14 @@
     "serve": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.21.2",
     "http-errors": "~1.6.3",
     "jade": "^1.9.2",
     "morgan": "~1.9.1",
+    "node-cron": "^3.0.3",
     "nodemon": "^3.1.9",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"

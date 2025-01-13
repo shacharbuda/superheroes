@@ -1,14 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const { notFoundHandler, errorHandler } = require('./config/errorHandler');
+require('./config/cronJobs'); // Import the cron jobs to start them
 
-var indexRouter = require('./routes/index');
-var superherosRouter = require('./routes/superheros');
-var timerRouter = require('./routes/timer');
+const indexRouter = require('./routes/index');
+const superherosRouter = require('./routes/superheros');
+const timerRouter = require('./routes/timer');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,19 +26,9 @@ app.use('/superheros', superherosRouter);
 app.use('/timer', timerRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.use(notFoundHandler);
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(errorHandler);
 
 module.exports = app;
