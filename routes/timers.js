@@ -1,16 +1,28 @@
-var express = require('express');
-var router = express.Router();
-var { Timer, Superhero } = require('../models');
+const express = require('express');
+const router = express.Router();
+const { Timer, Superhero } = require('../models');
+const Consts = require('../config/consts');
 
 /* GET timer listing by id. */
 router.get('/:id', async function(req, res, next) {
   try {
-    const timer = await Timer.findByPk(req.params.id);
+    const timer = await Timer.findByPk(
+      req.params.id,
+      { include: {model: Superhero, attributes: ['firstName', 'lastName']} } // Include the superhero's full name (and only, for performance)
+    ); 
     if (timer) {
       const now = new Date();
       const triggerDate = new Date(timer.triggerDate);
       const timeLeft = Math.max(0, Math.floor((triggerDate - now) / 1000)); // Time left in seconds
-      res.json({ id: timer.id, time_left: timeLeft });
+      res.json({ id: timer.id,
+                 timeLeftInSeconds: timeLeft,
+                 triggerDate: triggerDate,
+                 isSent: timer.isSent,
+                 isTryToSent: !timer.isSent && timer.failureCount < Consts.MAX_FAILURE_COUNT,
+                 url: timer.url,
+                 message: timer.message,
+                 senderSuperheroId: timer.superheroId,
+                 senderSuperheroFullName: timer.Superhero.fullName }); 
     } else {
       res.status(404).send('Timer not found');
     }

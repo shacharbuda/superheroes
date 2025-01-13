@@ -7,7 +7,7 @@ require('./config/cronJobs'); // Import the cron jobs to start them
 
 const indexRouter = require('./routes/index');
 const superherosRouter = require('./routes/superheros');
-const timerRouter = require('./routes/timer');
+const timerRouter = require('./routes/timers');
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/superheros', superherosRouter);
-app.use('/timer', timerRouter);
+app.use('/timers', timerRouter);
 
 // catch 404 and forward to error handler
 app.use(notFoundHandler);
