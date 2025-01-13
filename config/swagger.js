@@ -8,11 +8,6 @@ const options = {
       version: '1.0.0',
       description: 'API documentation for the Superheros application',
     },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-      },
-    ],
   },
   apis: ['./swagger/*.js'], // Path to the API docs
 };
