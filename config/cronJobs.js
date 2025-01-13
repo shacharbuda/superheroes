@@ -6,6 +6,7 @@ const Consts = require('./consts');
 
 // Function to execute the cron job
 async function sendDueMessagesByTimers() {
+  const transaction = await Timer.sequelize.transaction();
   try {
     // Find all timers where isSent is false and triggerDate has passed
     const timers = await Timer.findAll({
@@ -17,7 +18,10 @@ async function sendDueMessagesByTimers() {
         triggerDate: {
           [Sequelize.Op.lte]: new Date()
         }
-      }
+      },
+      lock: true,
+      skipLocked: true,
+      transaction
     });
 
     console.log(`Found ${timers.length} timers to send`);
@@ -28,15 +32,18 @@ async function sendDueMessagesByTimers() {
         await axios.post(timer.url, { message: timer.message });
         // Update the timer to mark it as sent
         timer.isSent = true;
+        await timer.save({ transaction });
       } catch (err) {
         console.error(`Error sending POST request for timer ID ${timer.id}:`, err);
-        timer.failureCount++;
-      } finally {
-        // regardless of success or failure, update the timer
-        await timer.save();
+        // Increment the failure count
+        timer.failureCount += 1;
+        await timer.save({ transaction });
       }
     }
+
+    await transaction.commit();
   } catch (err) {
+    await transaction.rollback();
     console.error('Error executing cron job:', err);
   }
 }
