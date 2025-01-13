@@ -49,7 +49,14 @@ async function sendDueMessagesByTimers() {
 }
 
 // Schedule the cron job to run every minute
-cron.schedule('* * * * *', sendDueMessagesByTimers);
+const scheduledTask = cron.schedule('* * * * *', sendDueMessagesByTimers);
 
 // Run the cron job immediately on startup
 sendDueMessagesByTimers();
+
+// allow the cron job to be stopped, for testing
+function stopScheduledTask() {
+  scheduledTask.stop();
+}
+
+module.exports = { sendDueMessagesByTimers, stopScheduledTask }; // for testing purposes
