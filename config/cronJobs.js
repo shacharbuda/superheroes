@@ -48,8 +48,8 @@ async function sendDueMessagesByTimers() {
   }
 }
 
-// Schedule the cron job to run every minute
-const scheduledTask = cron.schedule('* * * * *', sendDueMessagesByTimers);
+// Schedule the cron job to run every 10 seconds
+const scheduledTask = cron.schedule('*/10 * * * * *', sendDueMessagesByTimers);
 
 // Run the cron job immediately on startup
 sendDueMessagesByTimers();
