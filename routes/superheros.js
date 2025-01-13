@@ -10,8 +10,8 @@ router.get('/:id', async function(req, res, next) {
     );
     if (superhero) {
       const {id, alias, firstName, lastName, fullName, powers, weaknesses, origin, isGood} = superhero;
-      const sentMessages = superhero.Timers.filter(timer => timer.isSent).map(t => ({id: t.id, message: t.message}));
-      const remainingMessages = superhero.Timers.filter(timer => !timer.isSent).map(t => ({id: t.id, message: t.message}));
+      const sentMessages = superhero.Timers.filter(timer => timer.isSent).map(t => ({timerId: t.id, message: t.message}));
+      const remainingMessages = superhero.Timers.filter(timer => !timer.isSent).map(t => ({timerId: t.id, message: t.message}));
       res.json({
         id,
         alias,
