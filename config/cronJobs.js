@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 const Consts = require('./consts');
 
 // Function to execute the cron job
-async function executeCronJob() {
+async function sendDueMessagesByTimers() {
   try {
     // Find all timers where isSent is false and triggerDate has passed
     const timers = await Timer.findAll({
@@ -42,7 +42,7 @@ async function executeCronJob() {
 }
 
 // Schedule the cron job to run every minute
-cron.schedule('* * * * *', executeCronJob);
+cron.schedule('* * * * *', sendDueMessagesByTimers);
 
 // Run the cron job immediately on startup
-executeCronJob();
+sendDueMessagesByTimers();
