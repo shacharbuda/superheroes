@@ -45,7 +45,7 @@ router.post('/', async function(req, res, next) {
       origin: req.body.origin,
       isGood: req.body.isGood
     });
-    res.json(superhero);
+    res.status(201).json(superhero);
   } catch (err) {
     next(err);
   }

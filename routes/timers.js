@@ -52,7 +52,7 @@ router.post('/', async function(req, res, next) {
       superheroId,
       message
     });
-    res.json(timer);
+    res.status(201).json(timer);
   } catch (err) {
     next(err);
   }
