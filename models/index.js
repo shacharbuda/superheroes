@@ -8,7 +8,6 @@ Superhero.hasMany(sequelize.models.Timer, { foreignKey: 'superheroId' });
 Timer.belongsTo(sequelize.models.Superhero, { foreignKey: 'superheroId' });
 
 
-// sequelize.sync({force: true}); // TODO: remove
 sequelize.sync();
 
 module.exports = {
