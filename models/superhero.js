@@ -18,10 +18,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     powers: {
-      type: DataTypes.JSON,
+      // for MVP, we will store powers as a JSON object.
+      // In the future, we may want to create a separate table for powers and link them to superheroes
+      type: DataTypes.JSON, 
       allowNull: false
     },
     weaknesses: {
+      // for MVP, we will store weaknesses as a JSON object. (see powers above)
       type: DataTypes.JSON,
       allowNull: false
     },
