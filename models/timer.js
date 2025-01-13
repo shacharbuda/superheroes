@@ -33,10 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     isSent: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    },
-    isLocked: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
     }
   });
 
