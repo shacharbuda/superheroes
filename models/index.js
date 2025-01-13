@@ -4,8 +4,11 @@ const sequelize = require('../db');
 const Superhero = require('./superhero')(sequelize, Sequelize.DataTypes);
 const Timer = require('./timer')(sequelize, Sequelize.DataTypes);
 
+Superhero.hasMany(sequelize.models.Timer, { foreignKey: 'superheroId' });
+Timer.belongsTo(sequelize.models.Superhero, { foreignKey: 'superheroId' });
 
-// sequelize.sync({force: true}); TODO: remove
+
+// sequelize.sync({force: true}); // TODO: remove
 sequelize.sync();
 
 module.exports = {
