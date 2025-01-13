@@ -3,6 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { notFoundHandler, errorHandler } = require('./config/errorHandler');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./config/swagger');
 require('./config/cronJobs'); // Import the cron jobs to start them
 
 const indexRouter = require('./routes/index');
@@ -24,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/superheros', superherosRouter);
 app.use('/timers', timerRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // catch 404 and forward to error handler
 app.use(notFoundHandler);
