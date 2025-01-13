@@ -18,13 +18,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {
         model: 'Superheros',
-        key: 'id', // key in the target model that we're referencing
+        key: 'id',
       },
       allowNull: false
     },
     message: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isSent: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   });
 
